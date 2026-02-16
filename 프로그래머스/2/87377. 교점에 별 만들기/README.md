@@ -1,6 +1,6 @@
 # [level 2] 교점에 별 만들기 - 87377 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87377?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87377) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 02월 16일 22:47:42
+2026년 02월 17일 01:07:29
 
 ### 문제 설명
 
@@ -42,7 +42,7 @@
 <p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/15ffe460-62dc-48df-82a2-7d7636809454/RisingStarGraphStar.jpg" title="" alt="RisingStarGraphStar.jpg"></p>
 
 <p>위의 그림을 문자열로 나타낼 때, 별이 그려진 부분은 <code>*</code>, 빈 공간(격자선이 교차하는 지점)은 <code>.</code>으로 표현하면 다음과 같습니다.   </p>
-<div class="highlight"><pre class="codehilite"><code>"..........."  
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>"..........."  
 ".....*....."  
 "..........."  
 "..........."  
@@ -57,7 +57,7 @@
 <p>이때 격자판은 무한히 넓으니 모든 별을 포함하는 최소한의 크기만 나타내면 됩니다.  </p>
 
 <p>따라서 정답은  </p>
-<div class="highlight"><pre class="codehilite"><code>"....*...."  
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>"....*...."  
 "........."  
 "........."  
 "*.......*"  
@@ -131,7 +131,7 @@
 
 <p><code>(-1, 1)</code>, <code>(1, 1)</code> 에서 교점이 발생합니다.<br><br>
 따라서 정답은  </p>
-<div class="highlight"><pre class="codehilite"><code>"*.*"  
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>"*.*"  
 </code></pre></div>
 <p>입니다.</p>
 
@@ -142,7 +142,7 @@
 
 <p><code>(0, 0)</code> 에서 교점이 발생합니다.<br><br>
 따라서 정답은  </p>
-<div class="highlight"><pre class="codehilite"><code>"*"  
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>"*"  
 </code></pre></div>
 <p>입니다.</p>
 
@@ -153,7 +153,7 @@
 
 <p><code>(0, 0)</code> 에서 교점이 발생합니다.<br><br>
 따라서 정답은  </p>
-<div class="highlight"><pre class="codehilite"><code>"*"
+<div class="highlight" bis_skin_checked="1"><pre class="codehilite"><code>"*"
 </code></pre></div>
 <p>입니다.</p>
 
