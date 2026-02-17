@@ -1,67 +1,26 @@
+import java.util.*;
+
 class Solution {
-    
-    static StringBuilder sb;
-    static StringBuilder answer;
-    
     public int solution(String s) {
+        String str = s;
+        String[] nums = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+        StringBuilder sb = new StringBuilder();  // List → StringBuilder로 변경
         
-        answer = new StringBuilder();
-        sb = new StringBuilder();
-        
-        String[] strs = s.split("");
-        
-        for(String str : strs){
-            
-            char c = str.charAt(0);
-            if (c >= '0' && c <= '9') {
-                answer.append(c);
-            } else{
-                sb.append(str);
-                if(check(sb.toString())){
-                    sb = new StringBuilder();
+        while(!str.isEmpty()) {  // ✅ 수정1: !isEmpty()
+            char first = str.charAt(0);
+            if(first >= '0' && first <= '9') {
+                sb.append(first);
+                str = str.substring(1);
+                continue;
+            }
+            for(int i = 0; i < 10; i++) {
+                if(str.startsWith(nums[i])) {  // ✅ 수정2: nums[i]
+                    sb.append(i);
+                    str = str.substring(nums[i].length());  // ✅ 수정3: nums[i].length()
+                    break;
                 }
             }
         }
-        
-        
-        return Integer.parseInt(answer.toString());
+        return Integer.parseInt(sb.toString());  // ✅ 수정4: StringBuilder.toString()
     }
-    
-    public boolean check(String str){
-        switch(str){
-            case "one":
-                answer.append(1);
-                return true;
-            case "two":
-                answer.append(2);
-                return true;
-            case "three":
-                answer.append(3);
-                return true;
-            case "four":
-                answer.append(4);
-                return true;
-            case "five":
-                answer.append(5);
-                return true;
-            case "six":
-                answer.append(6);
-                return true;
-            case "seven":
-                answer.append(7);
-                return true;
-            case "eight":
-                answer.append(8);
-                return true;
-            case "nine":
-                answer.append(9);
-                return true;
-            case "zero":
-                answer.append(0);
-                return true;
-            default:
-                return false;
-        }
-    }
-    
 }
