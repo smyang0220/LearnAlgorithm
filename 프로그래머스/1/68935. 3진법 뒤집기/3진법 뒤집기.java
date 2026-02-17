@@ -1,15 +1,11 @@
+import java.util.*;
 class Solution {
     public int solution(int n) {
-        
-        StringBuilder sb = new StringBuilder();
-        
-        int num = n;
-        
-        while(num > 0){
-            sb.append(num%3);
-            num /= 3;
-        }
-        
-        return Integer.parseInt(sb.toString(),3);
+    String str = Integer.toString(n,3);
+    StringBuilder sb = new StringBuilder();
+    sb.append(str);
+    int answer = Integer.parseInt(sb.reverse().toString(),3);
+    
+    return answer;
     }
 }
