@@ -1,3 +1,4 @@
 -- 코드를 작성해주세요
 select CONCAT(TRUNCATE((MONTH(DIFFERENTIATION_DATE)-1)/3 + 1,0) ,'Q') as QUARTER, COUNT(1) as ECOLI_COUNT from ECOLI_DATA 
 group by QUARTER
+order by QUARTER
