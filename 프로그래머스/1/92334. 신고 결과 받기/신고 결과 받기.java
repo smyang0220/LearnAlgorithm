@@ -1,64 +1,91 @@
 import java.util.*;
 
-class Report {
-    String a;
-    String b;
+class Solution {
     
-    public Report(String a, String b){
-        this.a = a;
-        this.b = b;
+    // 각 유저는 한번에 한명의 유저 신고
+    // 동일 유저 신고는 1회로 처리
+    // k번 이상 신고되면 정지 사실을 신고한 사람들에게 메일
+    // 취합해서 한번에 보냄
+    
+    // 메일을 받은 횟수
+    
+    private class ReportLog{
+        String from;
+        String to;
+        
+        ReportLog(String from, String to){
+            this.from = from;
+            this.to = to;
+        }
+        
+        @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ReportLog rl = (ReportLog) obj;
+        return from.equals(rl.from) && to.equals(rl.to);
     }
-
-    // HashSet에서 중복 제거를 위해 equals/hashCode 반드시 필요!
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Report report = (Report) o;
-        return a.equals(report.a) && b.equals(report.b);
-    }
+    
     @Override
     public int hashCode() {
-        return Objects.hash(a, b);
+        return Objects.hash(from, to);
     }
-}
-
-class Solution {
+    }
+    
     public int[] solution(String[] id_list, String[] report, int k) {
         
-        HashSet<Report> set = new HashSet<>();
-        // 신고당한 횟수 카운트
-        HashMap<String,Integer> reportedCount = new HashMap<>();
-        // 메일 발송 횟수 카운트
-        HashMap<String,Integer> mailCount = new HashMap<>();
+        // 해시맵
+        // 여기엔 뒤의 신고당한 사람과 횟수
+        HashMap<String,Integer> map = new HashMap<>();
         
+        // 여기엔 신고자와 신고대상의 정보를 Set로
+        // 검사용
+        HashSet<ReportLog> set = new HashSet<>();
+        
+        
+        for(int i = 0; i< report.length; i++){
+            String[] log = report[i].split(" ");
+            ReportLog rl = new ReportLog(log[0],log[1]);
+            if(set.contains(rl)){
+                //System.out.println(rl.to + "이미 신고당함");
+                continue;
+            }
+            set.add(rl);
+            map.put(log[1], map.getOrDefault(log[1],0)+1);
+            
+        }
+        
+        ArrayList<String> list = new ArrayList<>();
+        
+        // 이제 k번 이상 신고된 사용자들을 판별하자
+        for(Map.Entry<String,Integer> entrySet : map.entrySet()){
+            if(entrySet.getValue() >= k){
+                list.add(entrySet.getKey());
+               // System.out.println("k번이상 신고당함" + entrySet.getKey());
+            }
+        }
+        
+        int index = 0;
         int[] answer = new int[id_list.length];
+       
+        // 이제 answer에서 자신이 신고한 사람이 나오면 +1 씩 해주어야하는데
         
-        // 1. 신고 내역 중복 제거
-        for(String str : report){
-            String[] who = str.split(" ");
-            set.add(new Report(who[0],who[1]));
+        HashMap<String, Integer> idIndex = new HashMap<>();
+        for (int i = 0; i < id_list.length; i++) {
+            idIndex.put(id_list[i], i);
         }
-        
-        // 2. 각 유저가 신고당한 횟수 카운트
-        for(Report rep : set){
-            reportedCount.put(rep.b, reportedCount.getOrDefault(rep.b,0) + 1);
-        }
-        
-        // 3. 정지된 유저를 신고한 사람에게 메일 발송 횟수 카운트
-        for(Report rep : set){
-            // 신고당한 사람이 k번 이상 신고당하면
-            if(reportedCount.get(rep.b) >= k){
-                // 신고한 사람에게 메일 +1
-                mailCount.put(rep.a, mailCount.getOrDefault(rep.a,0) + 1);
+
+        // set에 저장된 신고 정보를 활용해서
+        for (ReportLog rl : set) {
+            // rl.to가 정지자 list에 있는지 확인
+            if (list.contains(rl.to)) {
+                // rl.from의 answer +1
+                int idx = idIndex.get(rl.from);
+                answer[idx]++;
             }
         }
 
-        // 4. id_list 순서대로 결과 배열 채우기
-        for(int i = 0; i < id_list.length; i++){
-            answer[i] = mailCount.getOrDefault(id_list[i], 0);
-        }
-        
         return answer;
+
     }
 }
